@@ -1,0 +1,53 @@
+############################################## PART 1 #####################################
+sudo apt update 
+sudo apt install –y chromium-browser 
+
+  
+############################################## PART 2 #####################################  
+mkdir –p ~/.config/autostart 
+nano ~/.config/autostart/chromium-autostart.desktop 
+ 
+[Desktop Entry] 
+Type=Application 
+Exec=chromium-browser –kiosk –incognito –noerrdialogs –disable-infobars –no-first-run –enable-features=OverlayScrollbar --start-maximized https://yourwebsite.com
+Hidden=false 
+X-GNOME-Autostart-enabled=true 
+Name=Chromium Startup 
+
+# CTRL+X, then Y, then Enter 
+
+
+############################################## PART 3 #####################################
+nano  ~/keep-browser-alive.sh 
+
+#!/bin/bash  
+URL=" https://mse-digital-signage.prod.brigham-young.psdops.com/mse-1"  
+while true; do  
+  if ! pgrep -x "chromium-browser" > /dev/null  
+  then  
+    chromium-browser --kiosk --incognito "$URL" & 
+  fi  
+done 
+
+# CTRL+X, then Y, then Enter 
+
+
+############################################## PART 4 #####################################
+chmod +x ~/keep-browser-alive.sh   
+nano ~/.profile
+  
+nohup ~/keep-browser-alive.sh &
+
+# CTRL+X, then Y, then Enter 
+  
+
+############################################## PART 5 #####################################
+crontab –e 
+0 0 * * * pkill –f chromium-browser && sleep 5 && chromium-browser –kiosk –incognito htps://yourwebsite.com
+
+# CTRL+X, then Y, then Enter 
+
+
+############################################## PART 6 #####################################
+sudo reboot
+
