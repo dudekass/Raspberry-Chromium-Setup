@@ -1,0 +1,13 @@
+1. Install chromium browser  
+
+2. Setup the Auto-Launch Chromium on Startup 
+
+3. Setup a script to prevent the browser from closing 
+
+4. Make the script executable
+
+5. Add the script to Profile in order for it to start at every boot  
+ 
+6. Setup a daily reboot of Chromium everyday at Midnight 
+
+7. Manually reboot in order to apply the changes  
