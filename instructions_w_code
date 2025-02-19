@@ -1,0 +1,71 @@
+### Install chromium browser  
+# Open Terminal  
+sudo apt update
+sudo apt install –y chromium-browser
+ 
+### Setup the Auto-Launch Chromium on Startup 
+# On Terminal
+mkdir –p ~/.config/autostart
+nano ~/.config/autostart/chromium-autostart.desktop 
+
+# Nano will open, now add the following code: 
+
+[Desktop Entry] 
+Type=Application 
+Exec=chromium-browser –kiosk –incognito –noerrdialogs –disable-infobars –no-first-run –enable-features=OverlayScrollbar --start-maximized https://yourwebsite.com
+Hidden=false 
+X-GNOME-Autostart-enabled=true 
+Name=Chromium Startup 
+
+## To Save and Apply changes on nano: CTRL+X, then Y, then 'Enter' 
+ 
+### Setup a script to prevent the browser from closing 
+
+nano ~/keep-browser-alive.sh
+
+# A new nano tap will open, and you should write the following code: 
+
+#!/bin/bash  
+URL=" https://mse-digital-signage.prod.brigham-young.psdops.com/mse-1"  
+while true; do  
+  if ! pgrep -x "chromium-browser" > /dev/null  
+  then  
+    chromium-browser --kiosk --incognito "$URL" & 
+  fi  
+done 
+
+## To Save and Apply changes on nano: CTRL+X, then Y, then 'Enter' 
+ 
+### Make the script executable: 
+
+chmod +x ~/keep-browser-alive.sh   
+ 
+### Add the script to Profile in order for it to start at every boot  
+
+nano ~/.profile
+
+## At the end of the new nano tap, add the following line: 
+
+nohup ~/keep-browser-alive.sh & 
+
+## To Save and Apply changes on nano: CTRL+X, then Y, then 'Enter'
+ 
+### Setup a daily reboot of Chromium everyday at Midnight 
+# On the terminal, open the cron editor  
+
+crontab –e
+
+# At the bottom of the cron tab opened, add: 
+
+0 0 * * * pkill –f chromium-browser && sleep 5 && chromium-browser –kiosk –incognito htps://yourwebsite.com
+
+## To Save and Apply changes: CTRL+X, then Y, then 'Enter'
+ 
+### Manually reboot in order to apply the changes  
+# Open Terminal  
+
+sudo reboot
+ 
+ 
+ 
+### At reboot, Raspberry Pi should automatically open the mse brightspot web-page 
