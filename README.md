@@ -15,3 +15,10 @@ With the script written on this directory, every time your Raspberry Pi reboots,
 This script is setup in such a way that the webpage will reboot everyday at midnight.
 
 
+---
+ 
+## Author
+ 
+Duda Alves
+Computer Engineering, Brigham Young University
+[dudaliteracy@gmail.com] · [dudekass]
